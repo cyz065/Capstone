@@ -9,9 +9,9 @@ class Bound {
     private var bound:RectF = RectF(Float.MAX_VALUE, Float.MAX_VALUE, 0.0f, 0.0f)
 
     fun add(path:Path) {
-        val bnd = RectF()
-        path.computeBounds(bnd, true)
-        add(bnd)
+        val bound = RectF()
+        path.computeBounds(bound, true)
+        add(bound)
     }
 
     fun getBound():RectF {
@@ -22,7 +22,7 @@ class Bound {
         add(bnd.getBound())
     }
 
-    fun add(rect:RectF) {
+    private fun add(rect:RectF) {
         bound.left = min(bound.left, rect.left)
         bound.right = max(bound.right, rect.right)
         bound.top = min(bound.top, rect.top)

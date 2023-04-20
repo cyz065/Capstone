@@ -23,11 +23,25 @@ import retrofit2.Call
 import retrofit2.Callback
 import java.io.File
 import java.io.FileOutputStream
+import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.random.Random
+
+val engCategory = mutableListOf(
+    "The_Eiffel_Tower", "cup", "apple", "mushroom", "cookie", "car", "airplane", "clock",
+    "face", "bottlecap", "bicycle", "book", "sun", "butterfly", "fish")
+
+val korCategory = mutableListOf(
+    "에펠탑", "컵", "사과", "버섯", "쿠키", "자동차", "비행기", "시계",
+    "얼굴", "병뚜껑", "자전거", "책", "태양", "나비", "물고기"
+)
+
+var score:Int = 0
+var round:Int = 0
 
 class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityClassifierBinding
@@ -37,6 +51,7 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
     //category = ["The_Eiffel_Tower", "cup", "apple", "mushroom", "cookie", "car", "airplane", "clock",
     private val subjectMap = HashMap<String, String>()
 
+    /*
     private val engCategory = mutableListOf(
         "The_Eiffel_Tower", "cup", "apple", "mushroom", "cookie", "car", "airplane", "clock",
         "face", "bottlecap", "bicycle", "book", "sun", "butterfly", "fish")
@@ -44,7 +59,7 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
     private val korCategory = mutableListOf(
         "에펠탑", "컵", "사과", "버섯", "쿠키", "자동차", "비행기", "시계",
         "얼굴", "병뚜껑", "자전거", "책", "태양", "나비", "물고기"
-    )
+    )*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,13 +123,15 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
     private fun makeSubject() {
         val random = Random
         while(subjectMap.size < 5) {
-            val index = random.nextInt(15)
+            val index = SecureRandom().nextInt(15)
+            Log.e("주제", "$index")
             if(!subjectMap.containsKey(engCategory[index])) {
                 subjectMap[engCategory[index]] = korCategory[index]
             }
         }
 
         val values = subjectMap.values.toMutableList()
+        Log.e("주제", values.toString())
         binding.item1!!.text = values[0]
         binding.item2!!.text = values[1]
         binding.item3!!.text = values[2]
@@ -225,11 +242,23 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
                     if(pictureResponse != null) {
                         val id = pictureResponse.id
                         val image_file = pictureResponse.image_file
-                        val predict_class = pictureResponse.predicted_class
+                        val class1 = pictureResponse.predicted_class1
+                        val class2 = pictureResponse.predicted_class2
+                        val class3 = pictureResponse.predicted_class3
+                        val class4 = pictureResponse.predicted_class4
+                        val class5 = pictureResponse.predicted_class5
+                        val tmp = class1.split(" : ")
 
-                        Log.d("로그인 통신 성공", "id : $id image_file : $image_file predict_class : $predict_class")
+                        Log.d("로그인 통신 성공", "id : $id image_file : $image_file class1 : $class1 class2 : " +
+                                "$class2 class3 : $class3 class4 : $class4 class5: $class5")
                         Toast.makeText(this@ClassifierActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        binding.resultView!!.text = predict_class
+                        for(i in 0 until engCategory.size) {
+                            if(engCategory[i] == tmp[0]) {
+                                binding.resultView!!.text = korCategory[i]
+                            }
+                        }
+                        //Toast.makeText(this@ClassifierActivity, class1 + class2 + class3 + class4 + class5, Toast.LENGTH_LONG).show()
+                        //binding.resultView!!.text = tmp[0]
                     }
                 }
 

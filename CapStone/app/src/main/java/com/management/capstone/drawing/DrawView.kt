@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import kotlin.math.abs
 import kotlin.math.ceil
 
 class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet){
@@ -42,7 +43,7 @@ class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet)
         mCanvas = Canvas(mBitmap)
 
         currentColor = Color.BLACK
-        strokeWidth = 15
+        strokeWidth = 20
     }
 
     // erase one line
@@ -74,8 +75,8 @@ class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet)
         if(y + height > mBitmap.height)
             return null
         val bmp = Bitmap.createBitmap(mBitmap, x, y, width, height)
-        val bmp128 = Bitmap.createScaledBitmap(bmp, 128, 128, true)
-        return bmp128
+        val bmp64 = Bitmap.createScaledBitmap(bmp, 64, 64, true)
+        return bmp64
     }
 
     // actual drawing will happen
@@ -118,8 +119,8 @@ class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet)
     //then we call the quadTo() method which actually smooths the turns we create,
     //by calculating the mean position between the previous position and current position
     private fun touchMove(x: Float, y: Float) {
-        val dx = Math.abs(x - mX)
-        val dy = Math.abs(y - mY)
+        val dx = abs(x - mX)
+        val dy = abs(y - mY)
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
             mX = x
