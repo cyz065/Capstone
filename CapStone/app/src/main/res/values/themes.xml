@@ -22,4 +22,20 @@
         <item name="postSplashScreenTheme">@style/Theme.CapStone</item>
     </style>
 
+    <style name="table">
+        <item name="fontFamily">@font/share_tech</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="textInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="counterTextAppearance">@font/nanum_square</item>
+        <item name="hintTextColor">@color/black</item>
+    </style>
+
 </resources>

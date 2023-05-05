@@ -41,6 +41,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         binding.startBtn!!.setOnClickListener(this)
         binding.exitBtn!!.setOnClickListener(this)
         binding.infoBtn!!.setOnClickListener(this)
+        binding.rankBtn!!.setOnClickListener(this)
         this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
@@ -53,8 +54,9 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
             R.id.exitBtn -> {
                 dialog()
             }
-            R.id.infoBtn -> {
-
+            R.id.rankBtn -> {
+                val intent = Intent(this, RankingActivity::class.java)
+                startActivity(intent)
             }
         }
     }

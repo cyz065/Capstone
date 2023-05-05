@@ -46,7 +46,7 @@
             android:textSize="40sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/infoBtn"
+            android:id="@+id/rankBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,7 +55,7 @@
             android:fontFamily="@font/nanum_square"
             android:textColor="#000000"
             android:includeFontPadding="false"
-            android:text="게임 정보"
+            android:text="랭킹"
             android:textSize="40sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -72,6 +72,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/infoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

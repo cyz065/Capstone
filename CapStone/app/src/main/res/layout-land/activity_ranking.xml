@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/share_tech"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="랭킹"
+        android:textColor="#1C1F6B"
+        android:textSize="120sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/mainButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+            <!--
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="1" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="a" />
+            </TableRow>-->
+
+            <!--
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="2" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="3" />
+
+                <TextView
+                    style="@style/table"
+                    android:text=""/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="4" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="5" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="6" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="7" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="8" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="9"/>
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="10" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>-->
+
+
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/tableLayout2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+            <!--
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="11" />
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="12" />
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="13" />
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="14" />
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="15" />
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="16" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="17" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="18" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="19" />
+
+                <TextView
+                    style="@style/table"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    style="@style/table"
+                    android:text="20" />
+                <TextView
+                    style="@style/table"
+                    android:text=""/>
+            </TableRow>-->
+        </TableLayout>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
+        android:fontFamily="@font/nanum_square"
+        android:text="메인메뉴"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

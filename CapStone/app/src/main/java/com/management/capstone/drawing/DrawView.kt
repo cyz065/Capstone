@@ -64,7 +64,7 @@ class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet)
 
     // return bitmap to store in device
     fun save() : Bitmap? {
-        val bound = maxBound.getBound()
+        var bound = maxBound.getBound()
         val x = bound.left.toInt()
         val y = bound.top.toInt()
         val width = ceil(bound.width()).toInt()
@@ -76,6 +76,7 @@ class DrawView (c : Context, attributeSet: AttributeSet) : View(c, attributeSet)
             return null
         val bmp = Bitmap.createBitmap(mBitmap, x, y, width, height)
         val bmp64 = Bitmap.createScaledBitmap(bmp, 64, 64, true)
+        maxBound = Bound()
         return bmp64
     }
 

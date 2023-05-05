@@ -1,5 +1,6 @@
 package com.management.capstone
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.management.capstone.databinding.ActivityClassifierBinding
@@ -40,12 +42,15 @@ val korCategory = mutableListOf(
     "얼굴", "병뚜껑", "자전거", "책", "태양", "나비", "물고기"
 )
 
-var score:Int = 0
-var round:Int = 0
+//var score:Int = 0
+//var round:Int = 0
 
 class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityClassifierBinding
     private lateinit var timer:CountDownTimer
+    private var score = 0
+    private var round = 1
+
     //private lateinit var startActivityForResult: ActivityResultLauncher<Intent>
     //private lateinit var directory: File
     //category = ["The_Eiffel_Tower", "cup", "apple", "mushroom", "cookie", "car", "airplane", "clock",
@@ -67,6 +72,8 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         initView()
         makeSubject()
+
+        dialog()
         /*
         startActivityForResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -87,8 +94,57 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
         binding.unDo!!.setOnClickListener(this)
         binding.submit!!.setOnClickListener(this)
 
-        makeTimer()
 
+
+        //makeTimer()
+        score = intent.getIntExtra("Score", 0)
+        round = intent.getIntExtra("Round", 1)
+        binding.score!!.text = "score: $score"
+        Log.e("인텐트1", "score: $score round: $round")
+
+    }
+
+    private fun dialog () {
+        val builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("알림")
+            .setMessage("제한 시간 내에 카테고리에 있는 그림을 그려주세요")
+            .setPositiveButton("확인"
+            ) { dialog, _ ->
+                var secondsLeft = 0
+                val number_millis = 30000L
+
+                timer = object: CountDownTimer(30000, 1) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        val t = millisUntilFinished
+                        val tmp = (t / 1000.0f).roundToInt()
+
+                        if (tmp != secondsLeft) {
+                            secondsLeft = tmp
+                        }
+                        val roundMillis = (secondsLeft * 1000).toLong()
+
+                        if (roundMillis == number_millis) {
+                            binding.timer!!.text = secondsLeft.toString() + ":" + String.format("%03d", 0)
+
+                        } else {
+                            binding.timer!!.text = secondsLeft.toString() + ":" + String.format("%03d", millisUntilFinished % 1000L)
+                        }
+                    }
+
+                    override fun onFinish() {
+                        binding.timer!!.text = "0:000"
+                        Toast.makeText(baseContext, "Time Over", Toast.LENGTH_SHORT).show()
+                        binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
+                        binding.nextStage?.setTextColor(Color.BLACK)
+                        binding.nextStage?.isEnabled = true
+                    }
+                }
+                timer.start()
+                dialog.dismiss() }
+
+        builder.setCancelable(false)
+        builder.create().show()
     }
 
     private fun makeTimer() {
@@ -115,13 +171,16 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onFinish() {
                 binding.timer!!.text = "0:000"
-                Toast.makeText(baseContext, "Time Over", Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext, "Time Over Classifier", Toast.LENGTH_SHORT).show()
+                binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
+                binding.nextStage?.setTextColor(Color.BLACK)
+                binding.nextStage?.isEnabled = true
             }
         }
         timer.start()
     }
+
     private fun makeSubject() {
-        val random = Random
         while(subjectMap.size < 5) {
             val index = SecureRandom().nextInt(15)
             Log.e("주제", "$index")
@@ -189,16 +248,21 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
             R.id.nextStage -> {
                 Log.d("버튼", "다음 스테이지")
                 val intent = Intent(this, GeneratorActivity::class.java)
+                //round += 1
+                intent.putExtra("Round", round + 1)
+                intent.putExtra("Score", score)
                 startActivity(intent)
+                timer.cancel()
                 finish()
             }
 
             R.id.submit -> {
                 Toast.makeText(this, "제출 완료", Toast.LENGTH_SHORT).show()
                 Log.d("버튼", "제출 완료")
-                binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
-                binding.nextStage?.setTextColor(Color.BLACK)
-                binding.nextStage?.isEnabled = true
+
+                //binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
+                //binding.nextStage?.setTextColor(Color.BLACK)
+                //binding.nextStage?.isEnabled = true
 
                 val bitmap = binding.drawingView!!.save()
                 if (bitmap != null) {
@@ -207,7 +271,7 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
                     val file = File("/storage/emulated/0/Pictures/MyImage/${timeStamp}.png")
                     requestToServer(file)
                 }
-                timer.cancel()
+                //timer.cancel()
 
 
                 /*
@@ -248,17 +312,50 @@ class ClassifierActivity : AppCompatActivity(), View.OnClickListener {
                         val class4 = pictureResponse.predicted_class4
                         val class5 = pictureResponse.predicted_class5
                         val tmp = class1.split(" : ")
+                        val prob = (tmp[1].toFloat() * 100).toInt()
 
-                        Log.d("로그인 통신 성공", "id : $id image_file : $image_file class1 : $class1 class2 : " +
-                                "$class2 class3 : $class3 class4 : $class4 class5: $class5")
+                        Log.e("로그인 통신 성공", "id : $id image_file : $image_file tmp : $tmp")
+                        Log.e("로그인 통신 성공", "class1 : $class1 class2 : $class2 class3 : $class3 class4 : $class4 class5 : $class5")
                         Toast.makeText(this@ClassifierActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        for(i in 0 until engCategory.size) {
-                            if(engCategory[i] == tmp[0]) {
-                                binding.resultView!!.text = korCategory[i]
-                            }
+
+
+                        val classified = tmp[0]
+                        Log.e("카테고리", "$subjectMap $prob $classified")
+                        if(subjectMap.containsKey(classified) && prob > 80) {
+                            timer.cancel()
+                            binding.resultView!!.text = subjectMap[classified]
+
+                            val leftString = binding.timer!!.text.toString().split(":")
+                            Log.e("점수", "$leftString")
+                            score += leftString[0].toInt() * 100
+                            binding.score!!.text = "score: $score"
+
+                            //Log.e("점수", "$score")
+
+                            binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
+                            binding.nextStage?.setTextColor(Color.BLACK)
+                            binding.nextStage?.isEnabled = true
+
+                            Toast.makeText(baseContext, "점수 : $score", Toast.LENGTH_SHORT).show()
                         }
-                        //Toast.makeText(this@ClassifierActivity, class1 + class2 + class3 + class4 + class5, Toast.LENGTH_LONG).show()
-                        //binding.resultView!!.text = tmp[0]
+
+                        /*
+                        for(i in 0 until engCategory.size) {
+                            if(engCategory[i] == tmp[0] && prob > 80) {
+                                binding.resultView!!.text = korCategory[i]
+                                timer.cancel()
+                                val leftString = binding.timer!!.text.toString().split(":")
+                                score += leftString[0].toInt() * 100
+
+                                Log.e("점수", "$score")
+
+                                binding.nextStage?.background = ContextCompat.getDrawable(baseContext, R.drawable.main_button)
+                                binding.nextStage?.setTextColor(Color.BLACK)
+                                binding.nextStage?.isEnabled = true
+                                timer.cancel()
+                                Toast.makeText(baseContext, "점수 : $score", Toast.LENGTH_SHORT).show()
+                            }
+                        }*/
                     }
                 }
 
