@@ -43,59 +43,66 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun makeBoard() {
-        var current = 1
-        var size = members.size
+        var current = 0
 
         for(i in members.indices) {
             val tableRow = TableRow(this)
             val rankView = TextView(this)
             val nameView = TextView(this)
+            val scoreView = TextView(this)
 
             val params = TableRow.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT, 1.0f
             )
 
             rankView.text = members[i].ranking.toString()
-            nameView.text = "test $current"//members[i].nickName
+            nameView.text = members[i].nickName//"test $current"//members[i].nickName
+            scoreView.text = members[i].score.toString()
             current += 1
 
-            Log.e("랭킹", "${members[i].ranking} ${members[i].nickName}")
+            Log.e("랭킹", "$i ${members[i].ranking} ${members[i].nickName} ${members.size}")
 
             rankView.includeFontPadding = false
             nameView.includeFontPadding = false
+            scoreView.includeFontPadding = false
 
             rankView.setTextColor(Color.BLACK)
             nameView.setTextColor(Color.BLACK)
+            scoreView.setTextColor(Color.BLACK)
 
             rankView.textSize = 40f
             nameView.textSize = 40f
+            scoreView.textSize = 40f
 
             rankView.typeface = resources.getFont(R.font.share_tech)
             nameView.typeface = resources.getFont(R.font.share_tech)
+            scoreView.typeface = resources.getFont(R.font.share_tech)
 
             nameView.gravity = Gravity.CENTER
             rankView.gravity = Gravity.CENTER
+            scoreView.gravity = Gravity.CENTER
+
             tableRow.gravity = Gravity.CENTER
             //tableRow.layoutParams = TableRow.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
             //TableRow.LayoutParams.WRAP_CONTENT)
             rankView.layoutParams = params
             nameView.layoutParams = params
+            scoreView.layoutParams = params
+
             tableRow.addView(rankView)
             tableRow.addView(nameView)
-            binding.tableLayout!!.addView(tableRow)
+            tableRow.addView(scoreView)
 
-            if(current == 9) {
-                break
+            if(i < 10) {
+                binding.tableLayout!!.addView(tableRow)
+            }
+
+            else if(i >= 10) {
+                binding.tableLayout2!!.addView(tableRow)
             }
         }
-
-        if(size > 10) {
-            for (i in 10 until members.size) {
-                // 그 다음으로 처리
-            }
-        }
-
     }
+
     private fun getFromServer() {
         val retIn = RetrofitService.getRetrofitInstance().create(RetrofitAPI::class.java)
         retIn.getRanking().enqueue(object :Callback<List<ResponseRanking>> {
@@ -110,6 +117,7 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
                             members.add(test[i])
                         }
                     }
+
                     makeBoard()
 
                     //Log.e("랭킹", "성공 ${test?.size}")

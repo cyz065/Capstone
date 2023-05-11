@@ -17,4 +17,7 @@ interface RetrofitAPI {
 
     @GET("/ranking/")
     fun getRanking():Call<List<ResponseRanking>>
+
+    @GET("/generated-images/{category}")
+    fun getImage(@Path("category") category:String):Call<ResponseBody>
 }

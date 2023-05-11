@@ -6,19 +6,43 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
+    <ProgressBar
+        android:id="@+id/loading"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="200dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mainView"
+        app:layout_constraintStart_toStartOf="@+id/mainView"
+        app:layout_constraintTop_toTopOf="@+id/mainView" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_square"
+        android:text="이미지 생성중..."
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@+id/mainView"
+        app:layout_constraintTop_toBottomOf="@+id/loading"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="130dp"/>
+
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="score: 0"
-        app:layout_constraintBottom_toTopOf="@+id/itemGroup"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/nanum_square"
         android:includeFontPadding="false"
+        android:text="score: 0"
         android:textColor="#000000"
         android:textSize="40sp"
-        android:layout_marginStart="60dp"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/itemGroup"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/timer"
@@ -45,23 +69,23 @@
         app:layout_constraintTop_toBottomOf="@+id/timer">
 
         <RadioButton
+            android:id="@+id/item1"
+            android:layout_width="193dp"
+            android:layout_height="86dp"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/item1"
-            android:layout_width="193dp"
-            android:layout_height="86dp"
             android:background="@drawable/category_select"
             android:button="@null"
-            android:textAlignment="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:text=""
             android:fontFamily="@font/metropolis"
             android:gravity="center"
             android:includeFontPadding="false"
             android:padding="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="40sp" />
 
@@ -75,79 +99,79 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/category_select"
             android:button="@null"
-            android:textAlignment="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:text=""
             android:fontFamily="@font/metropolis"
             android:gravity="center"
             android:includeFontPadding="false"
             android:padding="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="40sp" />
 
         <RadioButton
             android:id="@+id/item3"
+            android:layout_width="193dp"
+            android:layout_height="86dp"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_width="193dp"
-            android:layout_height="86dp"
             android:background="@drawable/category_select"
-            android:textColor="#FFFFFF"
             android:button="@null"
-            android:textAlignment="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:text=""
             android:fontFamily="@font/metropolis"
             android:includeFontPadding="false"
             android:padding="10dp"
-            android:textSize="40sp"/>
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
 
         <RadioButton
             android:id="@+id/item4"
+            android:layout_width="193dp"
+            android:layout_height="86dp"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_width="193dp"
-            android:layout_height="86dp"
             android:background="@drawable/category_select"
-            android:textColor="#FFFFFF"
             android:button="@null"
-            android:textAlignment="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:text=""
             android:fontFamily="@font/metropolis"
             android:includeFontPadding="false"
             android:padding="10dp"
-            android:textSize="40sp"/>
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
 
         <RadioButton
             android:id="@+id/item5"
+            android:layout_width="193dp"
+            android:layout_height="86dp"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_width="193dp"
-            android:layout_height="86dp"
             android:background="@drawable/category_select"
-            android:textColor="#FFFFFF"
             android:button="@null"
-            android:textAlignment="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:text=""
             android:fontFamily="@font/metropolis"
             android:includeFontPadding="false"
             android:padding="10dp"
-            android:textSize="40sp"/>
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
     </RadioGroup>
 
-<!--
+    <!--
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/itemLayout"
         android:layout_width="match_parent"
@@ -259,12 +283,13 @@
         app:layout_constraintTop_toBottomOf="@+id/itemGroup">
 
         <ImageView
+            android:id="@+id/generatorView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/box_border"/>
+            android:layout_weight="1"
+            android:background="@drawable/box_border" />
 
 
         <!--
@@ -291,6 +316,13 @@
             android:layout_weight="1"
             android:background="@drawable/box_border">
 
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+<!--
             <TextView
                 android:id="@+id/resultView"
                 android:layout_width="match_parent"
@@ -299,7 +331,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:textColor="#000000"
-                android:textSize="100sp" />
+                android:textSize="100sp" />-->
         </LinearLayout>
 
         <LinearLayout
